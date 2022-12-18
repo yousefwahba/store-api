@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import UserModel from "../models/user.model";
-
+import config from "../config";
+import Jwt from "jsonwebtoken";
 const userModel = new UserModel();
 
 export class UserController {
@@ -58,6 +59,26 @@ export class UserController {
         throw new Error("user not found!");
       }
       res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  //authenticate
+  async authenticateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, password } = req.body;
+      const user = await userModel.authenticate(email, password);
+      const token = Jwt.sign({ user }, config.token as unknown as string);
+
+      if (!user) {
+        return res.status(401).json({ message: "not valid credentials" });
+      }
+
+      return res.json({
+        data: { ...user, token },
+        message: "authenticated successfully",
+      });
     } catch (error) {
       next(error);
     }

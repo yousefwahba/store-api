@@ -1,5 +1,13 @@
 import User from "../types/user.type";
 import db from "../database";
+import config from "../config";
+import bcrypt from "bcrypt";
+
+const hashPassword = (password: string) => {
+  const salt = parseInt(config.salt as string, 10);
+  return bcrypt.hashSync(`${password}${config.bcryptPass}`, salt);
+};
+
 class UserModel {
   //get all users
   async getAll(): Promise<Array<User>> {
@@ -35,7 +43,7 @@ class UserModel {
       const conn = await db.connect();
       const result = await conn.query(
         "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING name,email",
-        [user.name, user.email, user.password]
+        [user.name, user.email, hashPassword(user.password)]
       );
       conn.release();
       return result.rows[0];
@@ -51,7 +59,7 @@ class UserModel {
       const conn = await db.connect();
       const result = await conn.query(
         "UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING id,name,email",
-        [user.name, user.email, user.password, id]
+        [user.name, user.email, hashPassword(user.password), id]
       );
       conn.release();
       return result.rows[0];
@@ -74,6 +82,33 @@ class UserModel {
     } catch (error) {
       console.log(error);
       throw new Error("can't delete this user");
+    }
+  }
+  async authenticate(email: string, password: string): Promise<User | null> {
+    try {
+      const conn = await db.connect();
+      const result = await conn.query(
+        "SELECT password FROM users WHERE email=$1",
+        [email]
+      );
+      if (result.rows.length) {
+        const { password: hashPassword } = result.rows[0];
+        const isPasswordValid = bcrypt.compareSync(
+          `${password}${config.bcryptPass}`,
+          hashPassword
+        );
+        if (isPasswordValid) {
+          const userInfo = await conn.query(
+            "SELECT id,name,email FROM users WHERE email=($1)",
+            [email]
+          );
+          return userInfo.rows[0];
+        }
+      }
+      conn.release();
+      return null;
+    } catch (error) {
+      throw new Error("Unable to login");
     }
   }
 }
