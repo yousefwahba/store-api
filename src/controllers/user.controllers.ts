@@ -18,6 +18,9 @@ export class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await userModel.getById(req.params.id as unknown as number);
+      if (!user) {
+        throw new Error("user not found!");
+      }
       res.status(200).json(user);
     } catch (error) {
       next(error);
@@ -51,6 +54,9 @@ export class UserController {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await userModel.delete(req.params.id as unknown as number);
+      if (!user) {
+        throw new Error("user not found!");
+      }
       res.status(200).json(user);
     } catch (error) {
       next(error);
