@@ -10,7 +10,6 @@ class OrderModel {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log(error);
       throw new Error("can't get all orders");
     }
   }
@@ -25,7 +24,6 @@ class OrderModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.error(error);
       throw new Error("can't get this order");
     }
   }
@@ -41,7 +39,6 @@ class OrderModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("can't create this order");
     }
   }

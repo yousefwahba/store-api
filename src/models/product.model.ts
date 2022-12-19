@@ -10,7 +10,6 @@ class ProductModel {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log(error);
       throw new Error("Can't get all products");
     }
   }
@@ -25,7 +24,6 @@ class ProductModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.error(error);
       throw new Error("Can't get this product");
     }
   }
@@ -41,7 +39,6 @@ class ProductModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("Can't create this product");
     }
   }
@@ -57,7 +54,6 @@ class ProductModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("Can't update this product");
     }
   }
@@ -73,7 +69,6 @@ class ProductModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("Can't delete this product");
     }
   }

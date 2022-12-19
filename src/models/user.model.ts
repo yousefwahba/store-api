@@ -17,7 +17,6 @@ class UserModel {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log(error);
       throw new Error("can't get all users");
     }
   }
@@ -32,7 +31,6 @@ class UserModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.error(error);
       throw new Error("can't get this user");
     }
   }
@@ -48,7 +46,6 @@ class UserModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("can't create this user");
     }
   }
@@ -64,7 +61,6 @@ class UserModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("can't update this user");
     }
   }
@@ -80,7 +76,6 @@ class UserModel {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log(error);
       throw new Error("can't delete this user");
     }
   }
