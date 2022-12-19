@@ -20,7 +20,7 @@ router.put("/:id", userController.updateUser);
 // DELETE /users/:id
 router.delete("/:id", userController.deleteUser);
 
-//authentication
+//authentication (login)
 router.post("/auth", userController.authenticateUser);
 
 export default router;

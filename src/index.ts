@@ -12,13 +12,14 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", routes);
-app.use(errorMiddleware);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     message: "Route not found!",
   });
 });
+
+app.use(errorMiddleware);
 
 app.listen(3000, () => {
   console.log(`server is starting at port ${config.port || 3000} `);
