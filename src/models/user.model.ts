@@ -40,7 +40,7 @@ class UserModel {
     try {
       const conn = await db.connect();
       const result = await conn.query(
-        "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING name,email",
+        "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *",
         [user.name, user.email, hashPassword(user.password)]
       );
       conn.release();

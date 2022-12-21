@@ -55,7 +55,7 @@ class UserModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const conn = yield database_1.default.connect();
-                const result = yield conn.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING name,email", [user.name, user.email, hashPassword(user.password)]);
+                const result = yield conn.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [user.name, user.email, hashPassword(user.password)]);
                 conn.release();
                 return result.rows[0];
             }

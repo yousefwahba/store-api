@@ -16,24 +16,24 @@ const product_model_1 = __importDefault(require("../../models/product.model"));
 const database_1 = __importDefault(require("../../database"));
 const productModel = new product_model_1.default();
 describe("product model", () => {
-    describe("Test methods exist", () => {
-        it("should have a getAll method", () => {
+    describe("product Test methods exist", () => {
+        it("getAll method", () => {
             expect(productModel.getAll).toBeDefined();
         });
-        it("should have a getById method", () => {
+        it("getById method", () => {
             expect(productModel.getById).toBeDefined();
         });
-        it("should have a create method", () => {
+        it("create method", () => {
             expect(productModel.create).toBeDefined();
         });
-        it("should have an update method", () => {
+        it("update method", () => {
             expect(productModel.update).toBeDefined();
         });
         it("should have a delete method", () => {
             expect(productModel.delete).toBeDefined();
         });
     });
-    describe("Test model logic", () => {
+    describe("Product Test model logic", () => {
         const product = {
             name: "test product",
             price: 9.99,
