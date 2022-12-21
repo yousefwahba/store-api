@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const index_1 = __importDefault(require("../index"));
 const request = (0, supertest_1.default)(index_1.default);
-describe("test first end point ", () => {
+describe("test main endpoint ", () => {
     it("get the main end point", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get("/");
         expect(response.status).toBe(200);
