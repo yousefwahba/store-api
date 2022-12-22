@@ -68,16 +68,25 @@ export class UserController {
   async authenticateUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
-      const user = await userModel.authenticate(email, password);
-      const token = Jwt.sign({ user }, config.token as unknown as string);
 
-      if (!user) {
-        return res.status(401).json({ message: "not valid credentials" });
+      // Validate the input data
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ message: "Email and password are required." });
       }
+
+      // Authenticate the user
+      const user = await userModel.authenticate(email, password);
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password." });
+      }
+
+      // If the email and password are correct, create a JSON web token
+      const token = Jwt.sign({ user }, config.token as unknown as string);
 
       return res.json({
         data: { ...user, token },
-        message: "authenticated successfully",
       });
     } catch (error) {
       next(error);

@@ -92,14 +92,21 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
-                const user = yield userModel.authenticate(email, password);
-                const token = jsonwebtoken_1.default.sign({ user }, config_1.default.token);
-                if (!user) {
-                    return res.status(401).json({ message: "not valid credentials" });
+                // Validate the input data
+                if (!email || !password) {
+                    return res
+                        .status(400)
+                        .json({ message: "Email and password are required." });
                 }
+                // Authenticate the user
+                const user = yield userModel.authenticate(email, password);
+                if (!user) {
+                    return res.status(401).json({ message: "Invalid email or password." });
+                }
+                // If the email and password are correct, create a JSON web token
+                const token = jsonwebtoken_1.default.sign({ user }, config_1.default.token);
                 return res.json({
                     data: Object.assign(Object.assign({}, user), { token }),
-                    message: "authenticated successfully",
                 });
             }
             catch (error) {

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import errorMiddleware from "./middleware/error.middleware";
-import routes from "./routes";
+import routes from "./server";
 import config from "./config";
 import db from "./database";
 
