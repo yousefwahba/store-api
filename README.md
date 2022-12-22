@@ -75,22 +75,22 @@ then run that:
 
 all below links start with `http://localhost:3000/api`
 
-`GET /users`: returns a list of all users.
-`GET /users/:id`: returns a single user by ID.
-`POST /users`: creates a new user with the data sent in the request body.
-`PUT /users/:id`: updates an existing user with the data sent in the request body.
-`DELETE /users/:id`: deletes an existing user by ID.
-`POST /users/auth` : Check authentication (login)
+`GET /users`: returns a list of all users. <br/>
+`GET /users/:id`: returns a single user by ID.<br/>
+`POST /users`: creates a new user with the data sent in the request body.<br/>
+`PUT /users/:id`: updates an existing user with the data sent in the request body.<br/>
+`DELETE /users/:id`: deletes an existing user by ID.<br/>
+`POST /users/auth` : Check authentication (login)<br/>
 
-`GET /products`: Returns a list of all products.
-`GET /products/:id`: Returns a specific product with the given id.
-`POST /products`: Creates a new product with the given data.
-`PUT /products/:id`: Updates a specific product with the given id and data.
-`DELETE /products/:id`: Deletes a specific product with the given id.
+`GET /products`: Returns a list of all products.<br/>
+`GET /products/:id`: Returns a specific product with the given id.<br/>
+`POST /products`: Creates a new product with the given data.<br/>
+`PUT /products/:id`: Updates a specific product with the given id and data.<br/>
+`DELETE /products/:id`: Deletes a specific product with the given id.<br/>
 
-`GET /orders`: Returns a list of all orders.
-`GET /orders/:id`: Returns a specific order with the given id.
-`POST /orders`: Creates a new order with the given data.
+`GET /orders`: Returns a list of all orders.<br/>
+`GET /orders/:id`: Returns a specific order with the given id.<br/>
+`POST /orders`: Creates a new order with the given data.<br/>
 
 ### Created With
 
