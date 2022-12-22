@@ -98,3 +98,5 @@ type Order = {
   total_price: number;
 };
 ```
+
+![img](./src/types/Schema.png)
