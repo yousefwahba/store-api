@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import config from "../config";
+import config from "./config";
 
 const pool = new Pool({
   host: config.host,
@@ -7,10 +7,6 @@ const pool = new Pool({
   user: config.user,
   password: config.password,
   port: parseInt(config.dbPort as string, 10),
-});
-
-pool.on("error", (err: Error) => {
-  console.log(err.message);
 });
 
 export default pool;
