@@ -1,14 +1,12 @@
-import express from "express";
-
+import { Request, Response, NextFunction } from "express";
 const errorMiddleware = (
   error: Error,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
-  const message = error.message || "something went wrong";
-  res.status(500).send(message);
+  const message = error.message || "somthing went wrong";
+  res.status(500).json({ message });
   next();
 };
-
 export default errorMiddleware;
