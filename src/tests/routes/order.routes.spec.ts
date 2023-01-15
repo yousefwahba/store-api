@@ -37,11 +37,8 @@ describe("order routes", () => {
 
     order = {
       user_id: user.id,
-      product_id: product.id,
-      quantity: 2,
-      total_price: 39.98,
+      total_price: 39,
     } as Order;
-    order.id = product.id;
   });
 
   afterAll(async () => {
@@ -65,7 +62,7 @@ describe("order routes", () => {
     expect(res.status).toBe(200);
   });
 
-  it("POST /orders", async () => {
+  it("POST /orders ", async () => {
     const res = await request.post("/api/orders/").send(order);
     expect(res.status).toBe(201);
     expect(Number(res.body.total_price)).toEqual(order.total_price);
@@ -73,7 +70,7 @@ describe("order routes", () => {
 
   it("GET /orders/:id", async () => {
     const res = await request
-      .get(`/api/orders/${order.id}`)
+      .get(`/api/orders/1`)
       .set("Authorization", `Bearer ${token}`);
     expect(res.status).toBe(200);
   });

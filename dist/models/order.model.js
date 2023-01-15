@@ -24,7 +24,7 @@ class OrderModel {
                 return result.rows;
             }
             catch (error) {
-                throw new Error("can't get all orders");
+                throw new Error("something went wrong");
             }
         });
     }
@@ -49,11 +49,12 @@ class OrderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const conn = yield database_1.default.connect();
-                const result = yield conn.query("INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES ($1, $2, $3, $4) RETURNING id,user_id,product_id,quantity,total_price", [order.user_id, order.product_id, order.quantity, order.total_price]);
+                const result = yield conn.query("INSERT INTO orders (user_id, total_price) VALUES ($1, $2) RETURNING id,user_id,total_price", [order.user_id, Number(order.total_price)]);
                 conn.release();
                 return result.rows[0];
             }
             catch (error) {
+                // console.log(error);
                 throw new Error("can't create this order");
             }
         });

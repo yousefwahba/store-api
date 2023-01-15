@@ -29,7 +29,7 @@ export class OrderController {
     }
   }
 
-  // POST /orders
+  // POST /orders //should contain user_id & total price
   async createOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const order = await orderModel.create(req.body);

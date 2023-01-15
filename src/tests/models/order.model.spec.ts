@@ -40,9 +40,7 @@ describe("order model", () => {
 
     const order = {
       user_id: 1,
-      product_id: 1,
-      quantity: 2,
-      total_price: 19.98,
+      total_price: 19,
     } as Order;
 
     beforeAll(async () => {
@@ -52,17 +50,15 @@ describe("order model", () => {
     afterAll(async () => {
       const connection = await db.connect();
       await connection.query(
-        "DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;"
+        "DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM order_products;\n ALTER SEQUENCE order_products_id_seq RESTART WITH 1;"
       );
       connection.release();
     });
 
     it("create method", async () => {
       const createdOrder = await orderModel.create(order);
-      expect(createdOrder.user_id).toBe(1);
-      expect(createdOrder.product_id).toBe(1);
-      expect(createdOrder.quantity).toBe(2);
-      //   expect(createdOrder.total_price).toBe(order.total_price);
+      expect(createdOrder.user_id).toBe(order.user_id);
+      expect(createdOrder.total_price).toBe(order.total_price);
     });
 
     it("getAll method", async () => {

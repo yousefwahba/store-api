@@ -27,7 +27,6 @@ describe("user routes", () => {
         };
         const res = yield request.post("/api/users").send(user);
         user.id = res.body.id;
-        // console.log(res.body);
         const authRes = yield request
             .post("/api/users/auth")
             .send({ email: user.email, password: user.password });

@@ -43,7 +43,7 @@ class OrderController {
             }
         });
     }
-    // POST /orders
+    // POST /orders //should contain user_id & total price
     createOrder(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

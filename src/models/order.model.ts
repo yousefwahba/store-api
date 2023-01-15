@@ -10,7 +10,7 @@ class OrderModel {
       conn.release();
       return result.rows;
     } catch (error) {
-      throw new Error("can't get all orders");
+      throw new Error("something went wrong");
     }
   }
 
@@ -33,12 +33,13 @@ class OrderModel {
     try {
       const conn = await db.connect();
       const result = await conn.query(
-        "INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES ($1, $2, $3, $4) RETURNING id,user_id,product_id,quantity,total_price",
-        [order.user_id, order.product_id, order.quantity, order.total_price]
+        "INSERT INTO orders (user_id, total_price) VALUES ($1, $2) RETURNING id,user_id,total_price",
+        [order.user_id, Number(order.total_price)]
       );
       conn.release();
       return result.rows[0];
     } catch (error) {
+      // console.log(error);
       throw new Error("can't create this order");
     }
   }

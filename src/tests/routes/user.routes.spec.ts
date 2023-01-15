@@ -17,7 +17,6 @@ describe("user routes", () => {
     } as User;
     const res = await request.post("/api/users").send(user);
     user.id = res.body.id;
-    // console.log(res.body);
     const authRes = await request
       .post("/api/users/auth")
       .send({ email: user.email, password: user.password });

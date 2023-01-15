@@ -43,11 +43,8 @@ describe("order routes", () => {
         product.id = productRes.body.id;
         order = {
             user_id: user.id,
-            product_id: product.id,
-            quantity: 2,
-            total_price: 39.98,
+            total_price: 39,
         };
-        order.id = product.id;
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
         const conn = yield database_1.default.connect();
@@ -62,14 +59,14 @@ describe("order routes", () => {
             .set("Authorization", `Bearer ${token}`);
         expect(res.status).toBe(200);
     }));
-    it("POST /orders", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("POST /orders ", () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield request.post("/api/orders/").send(order);
         expect(res.status).toBe(201);
         expect(Number(res.body.total_price)).toEqual(order.total_price);
     }));
     it("GET /orders/:id", () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield request
-            .get(`/api/orders/${order.id}`)
+            .get(`/api/orders/1`)
             .set("Authorization", `Bearer ${token}`);
         expect(res.status).toBe(200);
     }));

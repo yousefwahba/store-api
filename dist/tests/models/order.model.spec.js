@@ -44,9 +44,7 @@ describe("order model", () => {
         };
         const order = {
             user_id: 1,
-            product_id: 1,
-            quantity: 2,
-            total_price: 19.98,
+            total_price: 19,
         };
         beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
             yield userModel.create(user);
@@ -54,15 +52,13 @@ describe("order model", () => {
         }));
         afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
             const connection = yield database_1.default.connect();
-            yield connection.query("DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;");
+            yield connection.query("DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM order_products;\n ALTER SEQUENCE order_products_id_seq RESTART WITH 1;");
             connection.release();
         }));
         it("create method", () => __awaiter(void 0, void 0, void 0, function* () {
             const createdOrder = yield orderModel.create(order);
-            expect(createdOrder.user_id).toBe(1);
-            expect(createdOrder.product_id).toBe(1);
-            expect(createdOrder.quantity).toBe(2);
-            //   expect(createdOrder.total_price).toBe(order.total_price);
+            expect(createdOrder.user_id).toBe(order.user_id);
+            expect(createdOrder.total_price).toBe(order.total_price);
         }));
         it("getAll method", () => __awaiter(void 0, void 0, void 0, function* () {
             const createdOrder = yield orderModel.create(order);

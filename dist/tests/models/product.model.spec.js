@@ -49,7 +49,6 @@ describe("product model", () => {
             expect(createdProduct.name).toEqual(product.name);
             expect(createdProduct.description).toEqual(product.description);
             expect(Number(createdProduct.price)).toEqual(product.price);
-            //   console.log(createdProduct.price, product.price);
         }));
         it("getAll method", () => __awaiter(void 0, void 0, void 0, function* () {
             yield productModel.create(product);
