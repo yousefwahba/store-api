@@ -36,10 +36,13 @@ describe("order routes", () => {
         token = userToken;
         product = {
             name: "test product",
-            price: 19.99,
+            price: 19,
             description: "test product description",
         };
-        const productRes = yield request.post("/api/products").send(product);
+        const productRes = yield request
+            .post("/api/products")
+            .set("Authorization", `Bearer ${token}`)
+            .send(product);
         product.id = productRes.body.id;
         order = {
             user_id: user.id,
@@ -60,7 +63,10 @@ describe("order routes", () => {
         expect(res.status).toBe(200);
     }));
     it("POST /orders ", () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield request.post("/api/orders/").send(order);
+        const res = yield request
+            .post("/api/orders/")
+            .set("Authorization", `Bearer ${token}`)
+            .send(order);
         expect(res.status).toBe(201);
         expect(Number(res.body.total_price)).toEqual(order.total_price);
     }));

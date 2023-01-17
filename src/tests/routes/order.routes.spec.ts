@@ -29,10 +29,13 @@ describe("order routes", () => {
 
     product = {
       name: "test product",
-      price: 19.99,
+      price: 19,
       description: "test product description",
     } as Product;
-    const productRes = await request.post("/api/products").send(product);
+    const productRes = await request
+      .post("/api/products")
+      .set("Authorization", `Bearer ${token}`)
+      .send(product);
     product.id = productRes.body.id;
 
     order = {
@@ -63,7 +66,10 @@ describe("order routes", () => {
   });
 
   it("POST /orders ", async () => {
-    const res = await request.post("/api/orders/").send(order);
+    const res = await request
+      .post("/api/orders/")
+      .set("Authorization", `Bearer ${token}`)
+      .send(order);
     expect(res.status).toBe(201);
     expect(Number(res.body.total_price)).toEqual(order.total_price);
   });
